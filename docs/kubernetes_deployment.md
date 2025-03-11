@@ -43,21 +43,29 @@ To install the chart with the release name newrelic-otel, run the following
 command and pass in the provided `values.yaml` file to customize the deployment:
 
 ```console
-helm upgrade --install newrelic-otel open-telemetry/opentelemetry-demo --values ./helm/values.yaml -n opentelemetry-demo
+helm upgrade --install newrelic-otel open-telemetry/opentelemetry-demo --version 0.32.0 --values ./helm/values.yaml -n opentelemetry-demo
 ```
 
 **Remark:** If your New Relic account is in Europe, install the chart as follows instead:
 
 ```console
-helm upgrade --install newrelic-otel open-telemetry/opentelemetry-demo --values ./helm/values.yaml --set opentelemetry-collector.config.exporters.otlp.endpoint="otlp.eu01.nr-data.net:4317" -n opentelemetry-demo
+helm upgrade --install newrelic-otel open-telemetry/opentelemetry-demo --version 0.32.0 --values ./helm/values.yaml --set opentelemetry-collector.config.exporters.otlp.endpoint="otlp.eu01.nr-data.net:4317" -n opentelemetry-demo
 ```
 
 ## New Relic Overrides (Optional)
 
 Optionally, you can enable a version of the `recommendationService` that is instrumented with New Relic APM instead of OpenTelemetry.  New Relic APM instrumented services are interoperable with OpenTelemetry instrumented services as New Relic supports W3C trace context.
 
+
 ```console
-helm upgrade --install newrelic-otel open-telemetry/opentelemetry-demo --values ./helm/values.yaml --values ./helm/recommendation_service_values.yaml -n opentelemetry-demo
+helm upgrade --install newrelic-otel open-telemetry/opentelemetry-demo --version 0.32.0 --values ./helm/values.yaml --values ./helm/recommendation_service_values.yaml -n opentelemetry-demo
+```
+
+
+You can also enable New Relic browser agent to the frontend service. New Relic browser agent is interoperable with OpenTelemetry services as it supports W3C headers.
+
+```console
+helm upgrade --install newrelic-otel open-telemetry/opentelemetry-demo --version 0.32.0 --values ./helm/values.yaml --values ./helm/frontend_service.yaml -n opentelemetry-demo
 ```
 
 ## Install Prometheus Exporters (Optional)
